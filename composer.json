@@ -1,0 +1,58 @@
+{
+    "name": "christian.soronellas/gamify",
+    "license": "proprietary",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "": "src/"
+        }
+    },
+    "minimum-stability": "stable",
+    "require": {
+        "php": ">=5.3.9",
+        "symfony/symfony": "2.7.*",
+        "symfony/monolog-bundle": "~2.4",
+        "sensio/distribution-bundle": "~4.0",
+        "sensio/framework-extra-bundle": "^3.0.2",
+        "carlosbuenosvinos/ddd": "^1.2",
+        "ramsey/uuid": "~2.4",
+        "ircmaxell/random-lib": "^1.1",
+        "moontoast/math": "^1.1",
+        "beberlei/assert": "^2.4",
+        "league/tactician-logger": "^0.3.0",
+        "league/tactician-bundle": "^0.3.0",
+        "snc/redis-bundle": "^1.1",
+        "predis/predis": "^1.0",
+        "elasticsearch/elasticsearch": "^2.0",
+        "josegonzalez/dotenv": "^1.0"
+    },
+    "require-dev": {
+        "sensio/generator-bundle": "~2.3",
+        "phpspec/phpspec": "^2.3",
+        "ciaranmcnulty/phpspec-typehintedmethods": "^1.1"
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
+        ],
+        "post-update-cmd": [
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile",
+            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::prepareDeploymentTarget"
+        ]
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
+    "extra": {
+        "symfony-app-dir": "app",
+        "symfony-web-dir": "web",
+        "symfony-assets-install": "relative"
+    }
+}

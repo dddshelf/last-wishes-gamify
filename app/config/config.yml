@@ -1,0 +1,66 @@
+imports:
+    - { resource: security.yml }
+    - { resource: services.yml }
+
+parameters:
+    locale: en
+
+framework:
+    esi:             ~
+    translator:      { fallbacks: ["%locale%"] }
+    secret:          "%secret%"
+    router:
+        resource: "%kernel.root_dir%/config/routing_%kernel.environment%.yml"
+        strict_requirements: %framework.router.strict_requirements%
+    form:            ~
+    csrf_protection: ~
+    validation:
+        enable_annotations: true
+        # cache: validator.mapping.cache.apc
+    serializer:
+        enable_annotations: true
+        # cache: serializer.mapping.cache.apc
+    templating:
+        engines: ['twig']
+    default_locale:  "%locale%"
+    trusted_hosts:   ~
+    trusted_proxies: ~
+    session:
+        handler_id:  ~
+    fragments:       ~
+    http_method_override: true
+    profiler:
+        only_exceptions: %framework.profiler.only_exceptions%
+
+monolog:
+    handlers:
+        main:
+            type:         fingers_crossed
+            action_level: error
+            handler:      nested
+        nested:
+            type:  stream
+            path:  "%kernel.logs_dir%/%kernel.environment%.log"
+            level: debug
+        console:
+            type:  console
+
+twig:
+    debug:            "%kernel.debug%"
+    strict_variables: "%kernel.debug%"
+
+tactician:
+    commandbus:
+        default:
+            middleware:
+                - tactician.middleware.validator
+                - tactician.middleware.locking
+                - tactician.middleware.logger
+                - tactician.middleware.command_handler
+
+snc_redis:
+    clients:
+        default:
+            type: predis
+            alias: default
+            dsn: %redis_dsn%

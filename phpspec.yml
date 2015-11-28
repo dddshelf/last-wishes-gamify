@@ -1,0 +1,4 @@
+formatter.name: pretty
+
+extensions:
+  - Cjm\PhpSpec\Extension\TypeHintedMethodsExtension
