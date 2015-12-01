@@ -1,0 +1,15 @@
+Gamify\Gamification\DomainModel\User\UserEarnedPoints:
+    exclusion_policy: all
+
+    properties:
+        userId:
+            type: Gamify\Gamification\DomainModel\User\UserId
+            expose: true
+
+        earnedPoints:
+            type: integer
+            expose: true
+
+        occurredOn:
+            type: DateTime
+            expose: true

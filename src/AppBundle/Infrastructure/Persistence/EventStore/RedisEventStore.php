@@ -34,7 +34,7 @@ class RedisEventStore implements EventStore
             $date = (new DateTimeImmutable())->format('YmdHis');
 
             $this->predis->rpush(
-                'events:' . $event->getAggregateId(),
+                'events:' . $events->aggregateId(),
                 $this->serializer->serialize([
                     'type' => get_class($event),
                     'created_on' => $date,

@@ -15,7 +15,7 @@
         "sensio/distribution-bundle": "~4.0",
         "sensio/framework-extra-bundle": "^3.0.2",
         "carlosbuenosvinos/ddd": "^1.2",
-        "ramsey/uuid": "~2.4",
+        "ramsey/uuid": "^3.0",
         "ircmaxell/random-lib": "^1.1",
         "moontoast/math": "^1.1",
         "beberlei/assert": "^2.4",
@@ -24,7 +24,14 @@
         "snc/redis-bundle": "^1.1",
         "predis/predis": "^1.0",
         "elasticsearch/elasticsearch": "^2.0",
-        "josegonzalez/dotenv": "^1.0"
+        "josegonzalez/dotenv": "^1.0",
+        "jms/serializer": "^1.1",
+        "jms/serializer-bundle": "^1.1",
+        "friendsofsymfony/rest-bundle": "^1.7",
+        "nelmio/api-doc-bundle": "^2.10",
+        "willdurand/hateoas-bundle": "^1.0",
+        "hautelook/templated-uri-bundle": "^2.0",
+        "ongr/elasticsearch-bundle": "1.0.0-alpha4"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",

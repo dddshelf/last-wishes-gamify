@@ -1,0 +1,11 @@
+Gamify\Gamification\DomainModel\User\UserSignedUp:
+    exclusion_policy: all
+
+    properties:
+        userId:
+            type: Gamify\Gamification\DomainModel\User\UserId
+            expose: true
+
+        occurredOn:
+            type: DateTime
+            expose: true

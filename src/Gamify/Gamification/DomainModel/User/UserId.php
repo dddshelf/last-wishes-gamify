@@ -4,6 +4,7 @@ namespace Gamify\Gamification\DomainModel\User;
 
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
+use Serializable;
 
 final class UserId
 {
@@ -17,8 +18,24 @@ final class UserId
         $this->id = Uuid::uuid4();
     }
 
-    function __toString()
+    /**
+     * @return UuidInterface
+     */
+    public function id()
+    {
+        return $this->id;
+    }
+
+    public function __toString()
     {
         return $this->id->toString();
+    }
+
+    public static function fromString($id)
+    {
+        $userId = new UserId();
+        $userId->id = Uuid::fromString($id);
+
+        return $userId;
     }
 }

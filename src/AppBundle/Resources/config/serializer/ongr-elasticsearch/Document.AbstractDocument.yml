@@ -1,0 +1,7 @@
+ONGR\ElasticsearchBundle\Document\AbstractDocument:
+    exclusion_policy: all
+
+    properties:
+        id:
+            type: string
+            expose: true

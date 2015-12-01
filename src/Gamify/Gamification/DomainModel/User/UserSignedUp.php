@@ -2,7 +2,7 @@
 
 namespace Gamify\Gamification\DomainModel\User;
 
-use DateTimeImmutable;
+use DateTime;
 use Ddd\Domain\DomainEvent;
 
 class UserSignedUp implements DomainEvent
@@ -12,10 +12,15 @@ class UserSignedUp implements DomainEvent
      */
     private $userId;
 
+    /**
+     * @var DateTimeImmutable
+     */
+    private $occurredOn;
+
     public function __construct(UserId $userId)
     {
         $this->userId = $userId;
-        $this->occurredOn = new DateTimeImmutable();
+        $this->occurredOn = new DateTime();
     }
 
     public function userId()

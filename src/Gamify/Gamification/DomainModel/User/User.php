@@ -4,8 +4,10 @@ namespace Gamify\Gamification\DomainModel\User;
 
 use Assert\Assertion;
 use Gamify\Gamification\DomainModel\AggregateRoot;
+use Gamify\Gamification\DomainModel\EventSourcedAggregateRoot;
+use Gamify\Gamification\DomainModel\EventStream;
 
-class User extends AggregateRoot
+class User extends AggregateRoot implements EventSourcedAggregateRoot
 {
     /**
      * @var UserId
@@ -28,11 +30,11 @@ class User extends AggregateRoot
         return $this->id;
     }
 
-    public static function signup()
+    public static function signup(UserId $userId)
     {
-        $user = new User(new UserId());
+        $user = new User($userId);
 
-        $user->publishThat(new UserSignedUp(new UserId()));
+        $user->publishThat(new UserSignedUp($userId));
 
         return $user;
     }
@@ -49,5 +51,16 @@ class User extends AggregateRoot
         foreach (array_fill(0, $event->earnedPoints(), new Point()) as $point) {
             $this->points[] = $point;
         }
+    }
+
+    public static function reconstitute(EventStream $events)
+    {
+        $user = new static($events->aggregateId());
+
+        foreach ($events as $event) {
+            $user->apply($event);
+        }
+
+        return $user;
     }
 }

@@ -4,6 +4,8 @@ imports:
 
 parameters:
     locale: en
+    projections_index: users
+    projections_type:  user
 
 framework:
     esi:             ~
@@ -48,6 +50,7 @@ monolog:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    exception_controller: FOS\RestBundle\Controller\ExceptionController::showAction
 
 tactician:
     commandbus:
@@ -64,3 +67,110 @@ snc_redis:
             type: predis
             alias: default
             dsn: %redis_dsn%
+
+jms_serializer:
+    metadata:
+        auto_detection: false
+        directories:
+            OngrElasticsearch:
+                namespace_prefix: "ONGR\\ElasticsearchBundle"
+                path: "@AppBundle/Resources/config/serializer/ongr-elasticsearch"
+            GamificationDomainModel:
+                namespace_prefix: "Gamify\\Gamification\\DomainModel"
+                path: "@AppBundle/Resources/config/serializer/gamify/gamification/domain-model"
+            GamificationCommands:
+                namespace_prefix: "Gamify\\Gamification\\Command"
+                path: "@AppBundle/Resources/config/serializer/gamify/gamification/command"
+
+ongr_elasticsearch:
+    connections:
+        default:
+            index_name: users
+            hosts:
+                - %elasticsearch_host%
+
+    managers:
+        default:
+            connection: default
+            mappings:
+                - AppBundle
+
+bazinga_hateoas:
+    serializer:
+        xml: hateoas.serializer.xml_hal
+
+sensio_framework_extra:
+    view: { annotations: false }
+
+fos_rest:
+    disable_csrf_role: IS_AUTHENTICATED_ANONYMOUSLY
+    allowed_methods_listener: true
+    param_fetcher_listener: force
+    access_denied_listener:
+        json: true
+
+    routing_loader:
+        include_format: false
+
+    exception:
+        codes:
+            Symfony\Component\Routing\Exception\ResourceNotFoundException:  HTTP_NOT_FOUND
+
+    body_converter:
+        enabled: true
+
+    view:
+        default_engine: twig
+        failed_validation: HTTP_BAD_REQUEST
+        view_response_listener: force
+
+        formats:
+            xml:  true
+            json: true
+
+        force_redirects:
+            html: true
+
+        mime_types:
+            xml:
+                - application/hal+xml
+                - application/xml
+
+            json:
+                - application/hal+json
+                - application/json
+
+            html:
+                - text/html
+
+    body_listener:
+        array_normalizer: fos_rest.normalizer.camel_keys
+
+    format_listener:
+        media_type:
+            version_regex: "/(v|version)=(?P<version>[0-9\.]+)/"
+
+        rules:
+            - { path: "^/api", priorities: ["json", "xml"], fallback_format: json, prefer_extension: false }
+            - { path: "^/api/doc/", priorities: ["html", "json", "xml"] fallback_format: json, prefer_extension: false }
+
+nelmio_api_doc:
+    name: Gamify's Gamification API
+    sandbox:
+        enabled:  true
+
+        accept_type: application/hal+json
+
+        body_format:
+            formats:
+                - form
+                - json
+
+            default_format: json
+
+        request_format:
+            method: accept_header
+            formats:
+                json: application/hal+json
+                xml:  application/hal+xml
+            default_format: json

@@ -1,22 +1,17 @@
 parameters:
 
 services:
-    elasticsearch.client_builder:
-        class: Elasticsearch\ClientBuilder
-        factory: [Elasticsearch\ClientBuilder, create]
-        calls:
-            - [setHosts, [[%elasticsearch_host%]]]
-
-    elasticsearch_client:
-        class: Elasticsearch\Client
-        factory: [@elasticsearch.client_builder, build]
-        lazy: true
+    hateoas.serializer.xml_hal:
+        class: Hateoas\Serializer\XmlHalSerializer
+        public: false
 
     simple_property_serializer:
         class: League\Tactician\Logger\PropertySerializer\SimplePropertySerializer
+        public: false
 
     class_property_formatter:
         class: League\Tactician\Logger\Formatter\ClassPropertiesFormatter
+        public: false
         arguments:
             - @simple_property_serializer
 
@@ -26,9 +21,40 @@ services:
             - @class_property_formatter
             - @logger
 
-    create_elasticsearch_index_command:
-        class: AppBundle\Command\CreateElasticsearchIndexCommand
-        arguments:
-            - @elasticsearch_client
+    redis_event_store:
+        class: AppBundle\Infrastructure\Persistence\EventStore\RedisEventStore
+        arguments: [ @snc_redis.default, @jms_serializer.serializer ]
+
+    user_earned_points_projection:
+        class: AppBundle\Infrastructure\Projection\Elasticsearch\ElasticsearchUserEarnedPointsProjection
+        arguments: [ @es.manager.default.user ]
+
+    user_signed_up_projection:
+        class: AppBundle\Infrastructure\Projection\Elasticsearch\ElasticsearchUserSignedUpProjection
+        arguments: [ @es.manager.default ]
+
+    projector:
+        class: AppBundle\Infrastructure\Projection\Projector
+        calls:
+            - [ register, [ [@user_earned_points_projection, @user_signed_up_projection] ] ]
+
+    user_repository:
+        class: AppBundle\Infrastructure\Persistence\EventStore\EventStoreUserRepository
+        arguments: [ @redis_event_store, @projector ]
+
+    reward_user_command_handler:
+        class: Gamify\Gamification\Command\RewardUserCommandHandler
+        arguments: [ @user_repository ]
         tags:
-            - { name: console.command }
+            - { name: tactician.handler, command: Gamify\Gamification\Command\RewardUserCommand }
+
+    signup_command_handler:
+        class: Gamify\Gamification\Command\SignupCommandHandler
+        arguments: [ @user_repository ]
+        tags:
+            - { name: tactician.handler, command: Gamify\Gamification\Command\SignupCommand }
+
+    uuid_handler:
+        class: AppBundle\Serializer\Handler\UuidHandler
+        tags:
+            - { name: jms_serializer.subscribing_handler }

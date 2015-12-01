@@ -62,7 +62,7 @@ class EventStream implements Iterator
      */
     public function valid()
     {
-        return true;
+        return false !== $this->current();
     }
 
     /**

@@ -2,11 +2,23 @@
 
 namespace AppBundle\Infrastructure\Projection\Elasticsearch;
 
+use AppBundle\Document\User;
 use AppBundle\Infrastructure\Projection\Projection;
 use Gamify\Gamification\DomainModel\User\UserSignedUp;
+use ONGR\ElasticsearchBundle\Service\Manager;
 
-class ElasticsearchUserSignedUpProjection extends BaseProjection
+class ElasticsearchUserSignedUpProjection implements Projection
 {
+    /**
+     * @var Manager
+     */
+    private $manager;
+
+    public function __construct(Manager $manager)
+    {
+        $this->manager = $manager;
+    }
+
     public function eventType()
     {
         return UserSignedUp::class;
@@ -14,6 +26,11 @@ class ElasticsearchUserSignedUpProjection extends BaseProjection
 
     public function project($event)
     {
-        $this->index($event->userId(), ['points' => 0]);
+        $userDocument = new User();
+        $userDocument->setId("{$event->userId()}");
+        $userDocument->setPoints(0);
+
+        $this->manager->persist($userDocument);
+        $this->manager->commit();
     }
 }

@@ -22,7 +22,7 @@ abstract class AggregateRoot
         $this->uncommitedEvents[] = $event;
     }
 
-    private function apply(DomainEvent $event)
+    protected function apply(DomainEvent $event)
     {
         $modifier = 'applyThat' . array_reverse(explode('\\', get_class($event)))[0];
 

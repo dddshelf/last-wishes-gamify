@@ -17,7 +17,7 @@ class UserSpec extends ObjectBehavior
     {
         DomainEventPublisher::instance()->subscribe(new AllEventsSubscriber());
 
-        $this->beConstructedThrough('signup');
+        $this->beConstructedThrough('signup', [new UserId()]);
     }
 
     public function letGo()

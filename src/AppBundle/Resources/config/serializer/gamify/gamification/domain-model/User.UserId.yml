@@ -1,0 +1,7 @@
+Gamify\Gamification\DomainModel\User\UserId:
+    exclusion_policy: all
+
+    properties:
+        id:
+            type: Ramsey\Uuid\Uuid
+            expose: true

@@ -2,10 +2,22 @@
 
 namespace AppBundle\Infrastructure\Projection\Elasticsearch;
 
+use AppBundle\Infrastructure\Projection\Projection;
 use Gamify\Gamification\DomainModel\User\UserEarnedPoints;
+use ONGR\ElasticsearchBundle\Service\Repository;
 
-class ElasticsearchUserEarnedPointsProjection extends BaseProjection
+class ElasticsearchUserEarnedPointsProjection implements Projection
 {
+    /**
+     * @var Repository
+     */
+    private $repository;
+
+    public function __construct(Repository $repository)
+    {
+        $this->repository = $repository;
+    }
+
     public function eventType()
     {
         return UserEarnedPoints::class;
@@ -13,14 +25,8 @@ class ElasticsearchUserEarnedPointsProjection extends BaseProjection
 
     public function project($event)
     {
-        $this->update(
-            $event->userId(),
-            [
-                'script' => 'ctx._source.points += points',
-                'params' => [
-                    'points' => $event->earnedPoints()
-                ]
-            ]
-        );
+        $user = $this->repository->find($event->userId());
+
+        $this->repository->update($event->userId(), ['points' => $user->getPoints() + $event->earnedPoints()]);
     }
 }
