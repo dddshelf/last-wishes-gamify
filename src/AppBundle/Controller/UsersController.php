@@ -137,6 +137,7 @@ class UsersController extends FOSRestController
      * Rewards a user with a given number of points
      *
      * @ApiDoc(
+     *  resource = true,
      *  description = "Rewards a user with a given number of points",
      *  statusCodes = {
      *      202 = "Returned when the request has been fulfilled successfully"

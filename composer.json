@@ -31,7 +31,8 @@
         "nelmio/api-doc-bundle": "^2.10",
         "willdurand/hateoas-bundle": "^1.0",
         "hautelook/templated-uri-bundle": "^2.0",
-        "ongr/elasticsearch-bundle": "1.0.0-alpha4"
+        "ongr/elasticsearch-bundle": "1.0.0-alpha4",
+        "lstrojny/functional-php": "^1.0"
     },
     "require-dev": {
         "sensio/generator-bundle": "~2.3",

@@ -3,6 +3,11 @@ users:
     type:     rest
     prefix:   /api
 
+events:
+    resource: @AppBundle/Controller/EventsController.php
+    type: rest
+    prefix: /api
+
 NelmioApiDocBundle:
     resource: "@NelmioApiDocBundle/Resources/config/routing.yml"
     prefix:   /api/doc

@@ -6,6 +6,7 @@ parameters:
     locale: en
     projections_index: users
     projections_type:  user
+    events_pagination_limit: 10
 
 framework:
     esi:             ~

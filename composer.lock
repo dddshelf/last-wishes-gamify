@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "873f709beae0fa3db98319df19849e97",
-    "content-hash": "1dd842373dd753d6282ffaf7d5b0cccf",
+    "hash": "ddc0de578760200d3534852576339182",
+    "content-hash": "d71a1efe4bd4eff781eef081d1646e87",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -1446,6 +1446,58 @@
                 "tactician"
             ],
             "time": "2015-05-08 13:16:22"
+        },
+        {
+            "name": "lstrojny/functional-php",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/lstrojny/functional-php.git",
+                "reference": "dffae98dd0873aeab168246792fc0501735ef971"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/lstrojny/functional-php/zipball/dffae98dd0873aeab168246792fc0501735ef971",
+                "reference": "dffae98dd0873aeab168246792fc0501735ef971",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/Functional/_import.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Lars Strojny",
+                    "email": "lstrojny@php.net",
+                    "homepage": "http://usrportage.de"
+                },
+                {
+                    "name": "Max Beutel",
+                    "email": "nash12@gmail.com"
+                }
+            ],
+            "description": "Functional primitives for PHP",
+            "keywords": [
+                "functional"
+            ],
+            "time": "2015-06-23 21:56:56"
         },
         {
             "name": "michelf/php-markdown",

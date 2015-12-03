@@ -3,6 +3,7 @@
 namespace AppBundle\Infrastructure\Persistence\EventStore;
 
 use DateTimeImmutable;
+use DateTimeZone;
 use Gamify\Gamification\DomainModel\EventStore;
 use Gamify\Gamification\DomainModel\EventStream;
 use JMS\Serializer\Serializer;
@@ -31,16 +32,14 @@ class RedisEventStore implements EventStore
         foreach ($events as $event) {
             $data = $this->serializer->serialize($event, 'json');
 
-            $date = (new DateTimeImmutable())->format('YmdHis');
+            $event = $this->serializer->serialize([
+                'type' => get_class($event),
+                'created_on' => (new DateTimeImmutable('now', new DateTimeZone('UTC')))->getTimestamp(),
+                'data' => $data
+            ], 'json');
 
-            $this->predis->rpush(
-                'events:' . $events->aggregateId(),
-                $this->serializer->serialize([
-                    'type' => get_class($event),
-                    'created_on' => $date,
-                    'data' => $data
-                ], 'json')
-            );
+            $this->predis->rpush('events:' . $events->aggregateId(), $event);
+            $this->predis->rpush('published_events', $event);
         }
     }
 
