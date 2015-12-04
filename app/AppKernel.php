@@ -20,6 +20,7 @@ class AppKernel extends Kernel
             new Bazinga\Bundle\HateoasBundle\BazingaHateoasBundle(),
             new ONGR\ElasticsearchBundle\ONGRElasticsearchBundle(),
             new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
+            new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
             new AppBundle\AppBundle(),
         ];
 

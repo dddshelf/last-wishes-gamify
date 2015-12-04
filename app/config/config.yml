@@ -6,6 +6,7 @@ parameters:
     locale: en
     projections_index: users
     projections_type:  user
+    published_events_key: published_events
     events_pagination_limit: 10
 
 framework:
@@ -175,3 +176,8 @@ nelmio_api_doc:
                 json: application/hal+json
                 xml:  application/hal+xml
             default_format: json
+
+white_october_pagerfanta:
+    exceptions_strategy:
+        out_of_range_page:        to_http_not_found
+        not_valid_current_page:   to_http_not_found

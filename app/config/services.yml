@@ -58,3 +58,22 @@ services:
         class: AppBundle\Serializer\Handler\UuidHandler
         tags:
             - { name: jms_serializer.subscribing_handler }
+
+    deserialization_callable:
+        class: AppBundle\PagerFanta\Adapter\DeserializationCallable
+        public: false
+        arguments:
+            - @jms_serializer
+
+    pagerfanta_redislist_adapter:
+        class: AppBundle\PagerFanta\Adapter\RedisListAdapter
+        public: false
+        arguments:
+            - %published_events_key%
+            - @snc_redis.default
+            - @deserialization_callable
+
+    published_events_pager:
+        class: Pagerfanta\Pagerfanta
+        arguments:
+            - @pagerfanta_redislist_adapter

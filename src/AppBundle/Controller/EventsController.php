@@ -2,13 +2,16 @@
 
 namespace AppBundle\Controller;
 
-use DateTime;
+use AppBundle\PagerFanta\Adapter\DeserializationCallable;
 use FOS\RestBundle\Controller\FOSRestController;
-use Hateoas\Representation\CollectionRepresentation;
-use Hateoas\Representation\PaginatedRepresentation;
+use Hateoas\Configuration\Route;
+use Hateoas\Representation\Factory\PagerfantaFactory;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Pagerfanta\Adapter\ArrayAdapter;
+use Pagerfanta\Pagerfanta;
 use Symfony\Component\HttpFoundation\Request;
 use function Functional\select;
+use function Functional\map;
 
 class EventsController extends FOSRestController
 {
@@ -21,7 +24,7 @@ class EventsController extends FOSRestController
      *  filters = {
      *      {"name" = "since", "dataType" = "integer"},
      *      {"name" = "page", "dataType" = "integer"},
-     *      {"name" = "all", "dataType" = "boolean"},
+     *      {"name" = "limit", "dataType" = "integer"},
      *  },
      *  output = "Hateoas\Representation\CollectionRepresentation",
      *  statusCodes = {
@@ -31,37 +34,29 @@ class EventsController extends FOSRestController
      */
     public function getEventsAction(Request $request)
     {
-        $page = $request->query->get('page', 1);
+        $page  = $request->query->get('page', 1);
         $limit = $request->query->get('limit', (int) $this->getParameter('events_pagination_limit'));
 
-        $start = ($page - 1) * $limit;
-        $stop  = $request->query->has('all') ? -1 : $start + ($limit - 1);
-
-        $rawPublishedEvents = $this->get('snc_redis.default')->lrange('published_events', $start, $stop);
-
-        $events = [];
-
-        foreach ($rawPublishedEvents as $rawPublishedEvent) {
-            $events[] = $this->get('serializer')->deserialize($rawPublishedEvent, 'array', 'json');
-        }
+        $pager = $this->get('published_events_pager');
+        $pager->setCurrentPage($page);
+        $pager->setMaxPerPage($limit);
 
         if ($request->query->has('since')) {
             $since = $request->query->get('since');
-            $events = select($events, function($event) use ($since) {
-                return (int) $event['created_on'] >= (int) $since;
-            });
+
+            $events = select(
+                map(
+                    $this->get('snc_redis.default')->lrange($this->getParameter('published_events_key'), 0, -1),
+                    new DeserializationCallable($this->get('jms_serializer'))
+                ),
+                function($event) use ($since) {
+                    return (int) $event['created_on'] >= (int) $since;
+                }
+            );
+
+            $pager = (new Pagerfanta(new ArrayAdapter($events)))->setCurrentPage($page)->setMaxPerPage($limit);
         }
 
-        return new PaginatedRepresentation(
-            new CollectionRepresentation($events, 'events', 'events'),
-            'get_events',
-            [],
-            $page,
-            $limit,
-            null,
-            null,
-            null,
-            true
-        );
+        return (new PagerfantaFactory())->createRepresentation($pager, new Route('get_events', [], true));
     }
 }
