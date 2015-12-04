@@ -3,16 +3,15 @@
     "license": "proprietary",
     "type": "project",
     "autoload": {
-        "psr-4": {
-            "": "src/"
-        }
+        "psr-4": { "": "src/" },
+        "classmap": [ "app/AppKernel.php", "app/AppCache.php" ]
     },
     "minimum-stability": "stable",
     "require": {
-        "php": ">=5.3.9",
-        "symfony/symfony": "2.7.*",
-        "symfony/monolog-bundle": "~2.4",
-        "sensio/distribution-bundle": "~4.0",
+        "php": ">=5.5.9",
+        "symfony/symfony": "2.8.*",
+        "symfony/monolog-bundle": "^2.8",
+        "sensio/distribution-bundle": "^5.0",
         "sensio/framework-extra-bundle": "^3.0.2",
         "carlosbuenosvinos/ddd": "^1.2",
         "ramsey/uuid": "^3.0",
@@ -36,7 +35,7 @@
         "white-october/pagerfanta-bundle": "^1.0"
     },
     "require-dev": {
-        "sensio/generator-bundle": "~2.3",
+        "sensio/generator-bundle": "^3.0",
         "phpspec/phpspec": "^2.3",
         "ciaranmcnulty/phpspec-typehintedmethods": "^1.1"
     },
@@ -62,6 +61,9 @@
     "extra": {
         "symfony-app-dir": "app",
         "symfony-web-dir": "web",
-        "symfony-assets-install": "relative"
+        "symfony-assets-install": "relative",
+        "branch-alias": {
+            "dev-master": "2.8-dev"
+        }
     }
 }

@@ -154,7 +154,8 @@ fos_rest:
 
         rules:
             - { path: "^/api", priorities: ["json", "xml"], fallback_format: json, prefer_extension: false }
-            - { path: "^/api/doc/", priorities: ["html", "json", "xml"] fallback_format: json, prefer_extension: false }
+            # - { path: "^/api/doc/", priorities: ["html", "json", "xml"] fallback_format: json, prefer_extension: false }
+            - { path: "^/documentation", stop: true }
 
 nelmio_api_doc:
     name: Gamify's Gamification API

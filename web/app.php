@@ -5,7 +5,11 @@ use Symfony\Component\ClassLoader\ApcClassLoader;
 use Symfony\Component\Debug\Debug;
 use Symfony\Component\HttpFoundation\Request;
 
-$loader = require_once __DIR__.'/../app/bootstrap.php.cache';
+/**
+ * @var Composer\Autoload\ClassLoader
+ */
+$loader = require __DIR__.'/../app/autoload.php';
+// include_once __DIR__.'/../app/bootstrap.php.cache';
 
 DotenvLoader::load([
     'filepath'  => __DIR__ . '/../.env',
@@ -24,11 +28,8 @@ if ('dev' === $_SERVER['SYMFONY_ENV']) {
     Debug::enable();
 }
 
-require_once __DIR__.'/../app/AppKernel.php';
-require_once __DIR__.'/../app/AppCache.php';
-
 $kernel = new AppKernel($_SERVER['SYMFONY_ENV'], (bool) $_SERVER['SYMFONY_DEBUG']);
-$kernel->loadClassCache();
+// $kernel->loadClassCache();
 
 if ('prod' === $_SERVER['SYMFONY_ENV'] && true === (bool) $_SERVER['SYMFONY___USE_REVERSE_PROXY']) {
     $kernel = new AppCache($kernel);
