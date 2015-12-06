@@ -5,6 +5,12 @@ This application is an example of a Gamification Bounded Context aligned with th
 
 This application used as an example in the book **[Domain-Driven Design in PHP by examples](https://leanpub.com/ddd-in-php)** in the *Integrating Bounded Contexts* chapter. It's full eventsourced and it has integration with the **[Last Wishes](https://github.com/dddinphp/last-wishes/)** application via messaging using RabbitMQ.
 
+In order to run it, previously you should have to run in the command line
+
+```sh
+cp .env.dist .env
+```
+
 To run it you should have **[Docker Toolbox](https://www.docker.com/docker-toolbox)** and **[docker-compose](https://docs.docker.com/compose/)** installed and then just execute the following in the command line
 
 ```sh
