@@ -1,6 +1,6 @@
 <?php
 
-namespace Gamify\Gamification\Command;
+namespace Lw\Gamification\Command;
 
 class RewardUserCommand
 {

@@ -78,10 +78,10 @@ jms_serializer:
                 namespace_prefix: "ONGR\\ElasticsearchBundle"
                 path: "@AppBundle/Resources/config/serializer/ongr-elasticsearch"
             GamificationDomainModel:
-                namespace_prefix: "Gamify\\Gamification\\DomainModel"
+                namespace_prefix: "Lw\\Gamification\\DomainModel"
                 path: "@AppBundle/Resources/config/serializer/gamify/gamification/domain-model"
             GamificationCommands:
-                namespace_prefix: "Gamify\\Gamification\\Command"
+                namespace_prefix: "Lw\\Gamification\\Command"
                 path: "@AppBundle/Resources/config/serializer/gamify/gamification/command"
 
 ongr_elasticsearch:
@@ -158,7 +158,7 @@ fos_rest:
             - { path: "^/documentation", stop: true }
 
 nelmio_api_doc:
-    name: Gamify's Gamification API
+    name: Last Wishes Gamification API
     sandbox:
         enabled:  true
 
@@ -182,3 +182,36 @@ white_october_pagerfanta:
     exceptions_strategy:
         out_of_range_page:        to_http_not_found
         not_valid_current_page:   to_http_not_found
+
+old_sound_rabbit_mq:
+    connections:
+        default:
+            host: localhost
+            port: 5672
+            user: guest
+            password: guest
+            vhost: /
+            lazy: true
+
+    consumers:
+        last_will_user_registered:
+            connection: default
+            callback: last_will_user_registered_consumer
+
+            exchange_options:
+                name: last-will
+                type: fanout
+
+            queue_options:
+                name: last-will
+
+        last_will_wish_was_made:
+            connection: default
+            callback: last_will_wish_was_made_consumer
+
+            exchange_options:
+                name: last-will
+                type: fanout
+
+            queue_options:
+                name: last-will

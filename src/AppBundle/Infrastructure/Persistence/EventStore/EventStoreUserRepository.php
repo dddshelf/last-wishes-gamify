@@ -3,11 +3,11 @@
 namespace AppBundle\Infrastructure\Persistence\EventStore;
 
 use AppBundle\Infrastructure\Projection\Projector;
-use Gamify\Gamification\DomainModel\EventStore;
-use Gamify\Gamification\DomainModel\EventStream;
-use Gamify\Gamification\DomainModel\User\User;
-use Gamify\Gamification\DomainModel\User\UserId;
-use Gamify\Gamification\DomainModel\User\UserRepository;
+use Lw\Gamification\DomainModel\EventStore;
+use Lw\Gamification\DomainModel\EventStream;
+use Lw\Gamification\DomainModel\User\User;
+use Lw\Gamification\DomainModel\User\UserId;
+use Lw\Gamification\DomainModel\User\UserRepository;
 
 class EventStoreUserRepository implements UserRepository
 {

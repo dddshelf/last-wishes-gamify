@@ -1,10 +1,10 @@
 <?php
 
-namespace Gamify\Gamification\Command;
+namespace Lw\Gamification\Command;
 
-use Gamify\Gamification\DomainModel\User\User;
-use Gamify\Gamification\DomainModel\User\UserId;
-use Gamify\Gamification\DomainModel\User\UserRepository;
+use Lw\Gamification\DomainModel\User\User;
+use Lw\Gamification\DomainModel\User\UserId;
+use Lw\Gamification\DomainModel\User\UserRepository;
 
 class SignupCommandHandler
 {

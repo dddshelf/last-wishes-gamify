@@ -43,16 +43,16 @@ services:
         arguments: [ @redis_event_store, @projector ]
 
     reward_user_command_handler:
-        class: Gamify\Gamification\Command\RewardUserCommandHandler
+        class: Lw\Gamification\Command\RewardUserCommandHandler
         arguments: [ @user_repository ]
         tags:
-            - { name: tactician.handler, command: Gamify\Gamification\Command\RewardUserCommand }
+            - { name: tactician.handler, command: Lw\Gamification\Command\RewardUserCommand }
 
     signup_command_handler:
-        class: Gamify\Gamification\Command\SignupCommandHandler
+        class: Lw\Gamification\Command\SignupCommandHandler
         arguments: [ @user_repository ]
         tags:
-            - { name: tactician.handler, command: Gamify\Gamification\Command\SignupCommand }
+            - { name: tactician.handler, command: Lw\Gamification\Command\SignupCommand }
 
     uuid_handler:
         class: AppBundle\Serializer\Handler\UuidHandler
@@ -77,3 +77,12 @@ services:
         class: Pagerfanta\Pagerfanta
         arguments:
             - @pagerfanta_redislist_adapter
+
+    last_will_user_registered_consumer:
+        class: AppBundle\Infrastructure\Messaging\PhpAmqpLib\PhpAmqpLibLastWillUserRegisteredConsumer
+        arguments:
+            - @tactician.commandbus
+
+    last_will_wish_was_made_consumer:
+        class: AppBundle\Infrastructure\Messaging\PhpAmqpLib\PhpAmqpLibLastWillWishWasMadeConsumer
+        arguments: [ @tactician.commandbus ]

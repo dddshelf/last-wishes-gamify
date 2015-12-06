@@ -1,12 +1,12 @@
 <?php
 
-namespace spec\Gamify\Gamification\DomainModel\User;
+namespace spec\Lw\Gamification\DomainModel\User;
 
 use Ddd\Domain\DomainEventPublisher;
 use Ddd\Domain\DomainEventSubscriber;
-use Gamify\Gamification\DomainModel\User\UserEarnedPoints;
-use Gamify\Gamification\DomainModel\User\UserSignedUp;
-use Gamify\Gamification\DomainModel\User\UserId;
+use Lw\Gamification\DomainModel\User\UserEarnedPoints;
+use Lw\Gamification\DomainModel\User\UserSignedUp;
+use Lw\Gamification\DomainModel\User\UserId;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Ramsey\Uuid\Uuid;
@@ -31,7 +31,7 @@ class UserSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Gamify\Gamification\DomainModel\User\User');
+        $this->shouldHaveType('Lw\Gamification\DomainModel\User\User');
     }
 
     public function it_should_be_constructed_with_a_user_id()

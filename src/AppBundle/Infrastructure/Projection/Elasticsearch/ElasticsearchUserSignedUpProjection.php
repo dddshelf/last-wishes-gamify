@@ -4,7 +4,7 @@ namespace AppBundle\Infrastructure\Projection\Elasticsearch;
 
 use AppBundle\Document\User;
 use AppBundle\Infrastructure\Projection\Projection;
-use Gamify\Gamification\DomainModel\User\UserSignedUp;
+use Lw\Gamification\DomainModel\User\UserSignedUp;
 use ONGR\ElasticsearchBundle\Service\Manager;
 
 class ElasticsearchUserSignedUpProjection implements Projection

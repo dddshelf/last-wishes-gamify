@@ -21,6 +21,7 @@ class AppKernel extends Kernel
             new ONGR\ElasticsearchBundle\ONGRElasticsearchBundle(),
             new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
             new WhiteOctober\PagerfantaBundle\WhiteOctoberPagerfantaBundle(),
+            new OldSound\RabbitMqBundle\OldSoundRabbitMqBundle(),
             new AppBundle\AppBundle(),
         ];
 

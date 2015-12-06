@@ -1,11 +1,11 @@
 <?php
 
-namespace Gamify\Gamification\DomainModel\User;
+namespace Lw\Gamification\DomainModel\User;
 
 use Assert\Assertion;
-use Gamify\Gamification\DomainModel\AggregateRoot;
-use Gamify\Gamification\DomainModel\EventSourcedAggregateRoot;
-use Gamify\Gamification\DomainModel\EventStream;
+use Lw\Gamification\DomainModel\AggregateRoot;
+use Lw\Gamification\DomainModel\EventSourcedAggregateRoot;
+use Lw\Gamification\DomainModel\EventStream;
 
 class User extends AggregateRoot implements EventSourcedAggregateRoot
 {

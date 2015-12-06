@@ -1,9 +1,9 @@
-Gamify\Gamification\DomainModel\User\UserEarnedPoints:
+Lw\Gamification\DomainModel\User\UserEarnedPoints:
     exclusion_policy: all
 
     properties:
         userId:
-            type: Gamify\Gamification\DomainModel\User\UserId
+            type: Lw\Gamification\DomainModel\User\UserId
             expose: true
 
         earnedPoints:

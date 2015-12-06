@@ -1,6 +1,6 @@
 {
-    "name": "christian.soronellas/gamify",
-    "license": "proprietary",
+    "name": "christian.soronellas/last-wishes-gamify",
+    "license": "MIT",
     "type": "project",
     "autoload": {
         "psr-4": { "": "src/" },
@@ -32,7 +32,8 @@
         "hautelook/templated-uri-bundle": "^2.0",
         "ongr/elasticsearch-bundle": "1.0.0-alpha4",
         "lstrojny/functional-php": "^1.0",
-        "white-october/pagerfanta-bundle": "^1.0"
+        "white-october/pagerfanta-bundle": "^1.0",
+        "oldsound/rabbitmq-bundle": "^1.7"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",

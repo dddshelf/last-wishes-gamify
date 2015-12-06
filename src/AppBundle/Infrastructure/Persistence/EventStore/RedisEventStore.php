@@ -4,8 +4,8 @@ namespace AppBundle\Infrastructure\Persistence\EventStore;
 
 use DateTimeImmutable;
 use DateTimeZone;
-use Gamify\Gamification\DomainModel\EventStore;
-use Gamify\Gamification\DomainModel\EventStream;
+use Lw\Gamification\DomainModel\EventStore;
+use Lw\Gamification\DomainModel\EventStream;
 use JMS\Serializer\Serializer;
 use Predis\Client;
 

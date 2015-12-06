@@ -1,6 +1,6 @@
 <?php
 
-namespace Gamify\Gamification\DomainModel;
+namespace Lw\Gamification\DomainModel;
 
 use Iterator;
 

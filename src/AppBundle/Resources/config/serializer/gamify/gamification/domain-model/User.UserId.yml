@@ -1,4 +1,4 @@
-Gamify\Gamification\DomainModel\User\UserId:
+Lw\Gamification\DomainModel\User\UserId:
     exclusion_policy: all
 
     properties:

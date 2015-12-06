@@ -3,7 +3,7 @@
 namespace AppBundle\Infrastructure\Projection\Elasticsearch;
 
 use AppBundle\Infrastructure\Projection\Projection;
-use Gamify\Gamification\DomainModel\User\UserEarnedPoints;
+use Lw\Gamification\DomainModel\User\UserEarnedPoints;
 use ONGR\ElasticsearchBundle\Service\Repository;
 
 class ElasticsearchUserEarnedPointsProjection implements Projection

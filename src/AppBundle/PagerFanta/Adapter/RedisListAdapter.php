@@ -47,7 +47,7 @@ class RedisListAdapter implements AdapterInterface
     private function assertKeyExists($key)
     {
         if (!$this->redis->exists($key)) {
-            throw new InvalidArgumentException(sprintf('The "%s" key does not exist!'));
+            throw new InvalidArgumentException(sprintf('The "%s" key does not exist!', $key));
         }
     }
 }

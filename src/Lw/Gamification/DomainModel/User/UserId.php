@@ -1,6 +1,6 @@
 <?php
 
-namespace Gamify\Gamification\DomainModel\User;
+namespace Lw\Gamification\DomainModel\User;
 
 use Ramsey\Uuid\Uuid;
 use Ramsey\Uuid\UuidInterface;
