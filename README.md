@@ -28,4 +28,10 @@ And to run the consumer for the ```Lw\Domain\Model\Wish\WishWasMade``` just exec
 php app/console rabbitmq:consumer last_will_wish_was_made
 ```
 
+## Running the test suite
+
+```sh
+php bin/phpspec run
+```
+
 Enjoy! :)
