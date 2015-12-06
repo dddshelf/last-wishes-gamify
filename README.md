@@ -11,6 +11,8 @@ In order to run it, previously you should have to run in the command line
 cp .env.dist .env
 ```
 
+Then edit filling the values according to your environment, especially for the ```SYMFONY__SECRET```, ```SYMFONY__REDIS_DSN``` and the ```SYMFONY__ELASTICSEARCH_HOST``` environment variables.
+
 To run it you should have **[Docker Toolbox](https://www.docker.com/docker-toolbox)** and **[docker-compose](https://docs.docker.com/compose/)** installed and then just execute the following in the command line
 
 ```sh
