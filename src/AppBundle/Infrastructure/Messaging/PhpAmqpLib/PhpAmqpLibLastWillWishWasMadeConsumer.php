@@ -4,6 +4,7 @@ namespace AppBundle\Infrastructure\Messaging\PhpAmqpLib;
 
 use Lw\Gamification\Command\RewardUserCommand;
 use League\Tactician\CommandBus;
+use Lw\Gamification\DomainModel\AggregateDoesNotExist;
 use OldSound\RabbitMqBundle\RabbitMq\ConsumerInterface;
 use PhpAmqpLib\Message\AMQPMessage;
 
@@ -31,9 +32,13 @@ class PhpAmqpLibLastWillWishWasMadeConsumer implements ConsumerInterface
             $event = json_decode($message->body);
             $eventBody = json_decode($event->event_body);
 
-            $this->commandBus->handle(
-                new RewardUserCommand($eventBody->user_id->id, 5)
-            );
+            try {
+                $this->commandBus->handle(
+                    new RewardUserCommand($eventBody->user_id->id, 5)
+                );
+            } catch (AggregateDoesNotExist $e) {
+                // Noop
+            }
 
             return true;
         }
