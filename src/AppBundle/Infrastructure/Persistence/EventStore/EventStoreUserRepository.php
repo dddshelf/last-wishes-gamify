@@ -3,6 +3,7 @@
 namespace AppBundle\Infrastructure\Persistence\EventStore;
 
 use AppBundle\Infrastructure\Projection\Projector;
+use Lw\Gamification\DomainModel\AggregateDoesNotExist;
 use Lw\Gamification\DomainModel\EventStore;
 use Lw\Gamification\DomainModel\EventStream;
 use Lw\Gamification\DomainModel\User\User;
@@ -43,5 +44,22 @@ class EventStoreUserRepository implements UserRepository
     public function nextIdentity()
     {
         return new UserId();
+    }
+
+    /**
+     * Tells whether a UserId exists or not
+     *
+     * @param UserId $userId
+     *
+     * @return boolean
+     */
+    public function has(UserId $userId)
+    {
+        try {
+            $this->eventstore->getEventsFor($userId);
+            return true;
+        } catch (AggregateDoesNotExist $e) {
+            return false;
+        }
     }
 }

@@ -20,9 +20,13 @@ class SignupCommandHandler
 
     public function handle(SignupCommand $command)
     {
-        $user = User::signup(
-            UserId::fromString($command->id())
-        );
+        $userId = UserId::fromString($command->id());
+
+        if ($this->userRepository->has($userId)) {
+            return;
+        }
+
+        $user = User::signup($userId);
 
         $this->userRepository->save($user);
     }

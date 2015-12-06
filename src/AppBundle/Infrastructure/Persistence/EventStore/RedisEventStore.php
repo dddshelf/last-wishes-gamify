@@ -6,6 +6,7 @@ use DateTimeImmutable;
 use DateTimeZone;
 use Lw\Gamification\DomainModel\EventStore;
 use Lw\Gamification\DomainModel\EventStream;
+use Lw\Gamification\DomainModel\AggregateDoesNotExist;
 use JMS\Serializer\Serializer;
 use Predis\Client;
 
@@ -45,6 +46,10 @@ class RedisEventStore implements EventStore
 
     public function getEventsFor($id)
     {
+        if (!$this->predis->exists('events:' . $id)) {
+            throw new AggregateDoesNotExist($id);
+        }
+
         $serializedEvents = $this->predis->lrange('events:' . $id, 0, -1);
 
         $eventStream = [];

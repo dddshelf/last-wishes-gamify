@@ -28,4 +28,13 @@ interface UserRepository
      * @return UserId
      */
     public function nextIdentity();
+
+    /**
+     * Tells whether a UserId exists or not
+     *
+     * @param UserId $userId
+     *
+     * @return boolean
+     */
+    public function has(UserId $userId);
 }
