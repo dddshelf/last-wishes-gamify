@@ -13,44 +13,44 @@ services:
         class: League\Tactician\Logger\Formatter\ClassPropertiesFormatter
         public: false
         arguments:
-            - @simple_property_serializer
+            - "@simple_property_serializer"
 
     tactician.middleware.logger:
         class: League\Tactician\Logger\LoggerMiddleware
         arguments:
-            - @class_property_formatter
-            - @logger
+            - "@class_property_formatter"
+            - "@logger"
 
     redis_event_store:
         class: AppBundle\Infrastructure\Persistence\EventStore\RedisEventStore
-        arguments: [ @snc_redis.default, @jms_serializer.serializer ]
+        arguments: [ "@snc_redis.default", "@jms_serializer.serializer" ]
 
     user_earned_points_projection:
         class: AppBundle\Infrastructure\Projection\Elasticsearch\ElasticsearchUserEarnedPointsProjection
-        arguments: [ @es.manager.default.user ]
+        arguments: [ "@es.manager.default.user" ]
 
     user_signed_up_projection:
         class: AppBundle\Infrastructure\Projection\Elasticsearch\ElasticsearchUserSignedUpProjection
-        arguments: [ @es.manager.default ]
+        arguments: [ "@es.manager.default" ]
 
     projector:
         class: AppBundle\Infrastructure\Projection\Projector
         calls:
-            - [ register, [ [@user_earned_points_projection, @user_signed_up_projection] ] ]
+            - [ register, [ ["@user_earned_points_projection", "@user_signed_up_projection"] ] ]
 
     user_repository:
         class: AppBundle\Infrastructure\Persistence\EventStore\EventStoreUserRepository
-        arguments: [ @redis_event_store, @projector ]
+        arguments: [ "@redis_event_store", "@projector" ]
 
     reward_user_command_handler:
         class: Lw\Gamification\Command\RewardUserCommandHandler
-        arguments: [ @user_repository ]
+        arguments: [ "@user_repository" ]
         tags:
             - { name: tactician.handler, command: Lw\Gamification\Command\RewardUserCommand }
 
     signup_command_handler:
         class: Lw\Gamification\Command\SignupCommandHandler
-        arguments: [ @user_repository ]
+        arguments: [ "@user_repository" ]
         tags:
             - { name: tactician.handler, command: Lw\Gamification\Command\SignupCommand }
 
@@ -63,26 +63,26 @@ services:
         class: AppBundle\PagerFanta\Adapter\DeserializationCallable
         public: false
         arguments:
-            - @jms_serializer
+            - "@jms_serializer"
 
     pagerfanta_redislist_adapter:
         class: AppBundle\PagerFanta\Adapter\RedisListAdapter
         public: false
         arguments:
-            - %published_events_key%
-            - @snc_redis.default
-            - @deserialization_callable
+            - "%published_events_key%"
+            - "@snc_redis.default"
+            - "@deserialization_callable"
 
     published_events_pager:
         class: Pagerfanta\Pagerfanta
         arguments:
-            - @pagerfanta_redislist_adapter
+            - "@pagerfanta_redislist_adapter"
 
     last_will_user_registered_consumer:
         class: AppBundle\Infrastructure\Messaging\PhpAmqpLib\PhpAmqpLibLastWillUserRegisteredConsumer
         arguments:
-            - @tactician.commandbus
+            - "@tactician.commandbus"
 
     last_will_wish_was_made_consumer:
         class: AppBundle\Infrastructure\Messaging\PhpAmqpLib\PhpAmqpLibLastWillWishWasMadeConsumer
-        arguments: [ @tactician.commandbus ]
+        arguments: [ "@tactician.commandbus" ]

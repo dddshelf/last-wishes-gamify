@@ -4,7 +4,7 @@ users:
     prefix:   /api
 
 events:
-    resource: @AppBundle/Controller/EventsController.php
+    resource: "@AppBundle/Controller/EventsController.php"
     type: rest
     prefix: /api
 

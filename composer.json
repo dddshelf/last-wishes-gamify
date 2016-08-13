@@ -6,10 +6,13 @@
         "psr-4": { "": "src/" },
         "classmap": [ "app/AppKernel.php", "app/AppCache.php" ]
     },
+    "autoload-dev": {
+        "psr-4": { "Tests\\": "tests/" }
+    },
     "minimum-stability": "stable",
     "require": {
         "php": ">=5.5.9",
-        "symfony/symfony": "2.8.*",
+        "symfony/symfony": "3.1.*",
         "symfony/monolog-bundle": "^2.8",
         "sensio/distribution-bundle": "^5.0",
         "sensio/framework-extra-bundle": "^3.0.2",
@@ -20,7 +23,7 @@
         "beberlei/assert": "^2.4",
         "league/tactician-logger": "^0.3.0",
         "league/tactician-bundle": "^0.3.0",
-        "snc/redis-bundle": "^1.1",
+        "snc/redis-bundle": "^2.0",
         "predis/predis": "^1.0",
         "elasticsearch/elasticsearch": "^2.0",
         "josegonzalez/dotenv": "^1.0",
@@ -30,7 +33,7 @@
         "nelmio/api-doc-bundle": "^2.10",
         "willdurand/hateoas-bundle": "^1.0",
         "hautelook/templated-uri-bundle": "^2.0",
-        "ongr/elasticsearch-bundle": "1.0.0-alpha4",
+        "ongr/elasticsearch-bundle": "^1.1",
         "lstrojny/functional-php": "^1.0",
         "white-october/pagerfanta-bundle": "^1.0",
         "oldsound/rabbitmq-bundle": "^1.7"
@@ -61,7 +64,10 @@
     },
     "extra": {
         "symfony-app-dir": "app",
+        "symfony-bin-dir": "bin",
+        "symfony-var-dir": "var",
         "symfony-web-dir": "web",
+        "symfony-tests-dir": "tests",
         "symfony-assets-install": "relative",
         "branch-alias": {
             "dev-master": "2.8-dev"

@@ -2,7 +2,6 @@
 
 namespace AppBundle\Document;
 
-use ONGR\ElasticsearchBundle\Document\AbstractDocument;
 use Hateoas\Configuration\Annotation as Hateoas;
 use ONGR\ElasticsearchBundle\Annotation as ES;
 use JMS\Serializer\Annotation as Serializer;
@@ -14,7 +13,7 @@ use JMS\Serializer\Annotation as Serializer;
  * @Serializer\AccessType("public_method")
  * @Hateoas\Relation("self", href = @Hateoas\Route("get_user", parameters={"id" = "expr(object.getId())"}, absolute = true))
  */
-class User extends AbstractDocument
+class User
 {
     /**
      * @var integer

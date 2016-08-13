@@ -30,9 +30,11 @@ framework:
     trusted_hosts:   ~
     trusted_proxies: ~
     session:
-        handler_id:  ~
+        handler_id:  session.handler.native_file
+        save_path:   "%kernel.root_dir%/../var/sessions/%kernel.environment%"
     fragments:       ~
     http_method_override: true
+    assets: ~
     profiler:
         only_exceptions: %framework.profiler.only_exceptions%
 
@@ -150,7 +152,7 @@ fos_rest:
 
     format_listener:
         media_type:
-            version_regex: "/(v|version)=(?P<version>[0-9\.]+)/"
+            version_regex: "/(v|version)=(?P<version>[0-9\\.]+)/"
 
         rules:
             - { path: "^/api", priorities: ["json", "xml"], fallback_format: json, prefer_extension: false }
